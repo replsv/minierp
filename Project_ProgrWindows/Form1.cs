@@ -189,6 +189,11 @@ namespace Project_ProgrWindows
          */
         private void stergeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int selected = listViewProducts.SelectedItems.Count;
+            if (selected == 0)
+            {
+                return;
+            }
             if (MessageBox.Show("Sunteti sigur ca vreti sa stergeti acest produs?", "Atentie", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 string id = listViewProducts.SelectedItems[0].Text;
@@ -243,6 +248,13 @@ namespace Project_ProgrWindows
             }
 
             listViewProducts.View = View.Details;
+        }
+
+        private void adaugaProdusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditProductForm editForm = new EditProductForm(this);
+            editForm.ShowDialog();
+            this.refreshProductsListView();
         }
     }
 }

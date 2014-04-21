@@ -196,7 +196,7 @@ namespace Project_ProgrWindows
         public bool save(List<KeyValuePair<String,String>> data)
         {
             string statement = "INSERT INTO ";
-            string where = "1";
+            string where = "";
             List<string> update = new List<string>();
             foreach (KeyValuePair<string, string> k in data)
             {
@@ -210,7 +210,12 @@ namespace Project_ProgrWindows
             }
 
             statement += this.main_table + " SET ";
-            statement += @String.Join(", ", update.ToArray()).ToString() + " WHERE " + where;
+            statement += @String.Join(", ", update.ToArray()).ToString();
+
+            if (where != "")
+            {
+                statement += @" WHERE " + where;
+            }
 
             try
             {
@@ -221,7 +226,6 @@ namespace Project_ProgrWindows
             }
             catch (MySqlException e)
             {
-                MessageBox.Show(e.ToString());
                 return false;
             }
             return true;

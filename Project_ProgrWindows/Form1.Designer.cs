@@ -155,6 +155,7 @@
             this.adaugaProdusToolStripMenuItem.Name = "adaugaProdusToolStripMenuItem";
             this.adaugaProdusToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.adaugaProdusToolStripMenuItem.Text = "Adauga produs";
+            this.adaugaProdusToolStripMenuItem.Click += new System.EventHandler(this.adaugaProdusToolStripMenuItem_Click);
             // 
             // adaugaCategorieToolStripMenuItem
             // 
@@ -261,7 +262,7 @@
             this.editazaToolStripMenuItem,
             this.stergeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 48);
             // 
             // editazaToolStripMenuItem
             // 

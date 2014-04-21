@@ -27,6 +27,15 @@ namespace Project_ProgrWindows
             populateForm();
         }
 
+        public EditProductForm(MainForm parent)
+        {
+            this.parent = parent;
+            InitializeComponent();
+            comboBoxCategory.SelectedIndex = 0;
+            populateCategoriesCombobox();
+            this.label1.Text = "Adauga produs";
+        }
+
         private void populateForm()
         {
             textBoxId.Text = item.SubItems[0].Text;
