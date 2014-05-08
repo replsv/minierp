@@ -518,15 +518,20 @@ namespace Project_ProgrWindows
 
         /// <summary>
         /// Overload operator "+".
-        /// Get the sum of prices of the current product and value sent as parameter.
+        /// Get the sum of prices of the current product and another product
+        /// which is sent as parameter.
         /// </summary>
         /// <param name="add"></param>
         /// <returns></returns>
-        override float operator +(float add)
+        public static float operator +(Product a, Product b)
         {
             float sumPrice = 0;
-            var currentPrice = this.currentData.First(item => item.Key.Equals("price")).Value;
-            sumPrice = Convert.ToSingle(currentPrice) + Convert.ToSingle(add);
+
+            var aPrice = b.getData().First(item => item.Key.Equals("price")).Value;
+            var bPrice = b.getData().First(item => item.Key.Equals("price")).Value;
+
+            sumPrice = Convert.ToSingle(aPrice) + Convert.ToSingle(bPrice);
+
             return sumPrice;
         }
 
