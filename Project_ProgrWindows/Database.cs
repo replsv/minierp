@@ -86,9 +86,15 @@ namespace Project_ProgrWindows
         {
             try
             {
+                string installFile = System.Configuration.ConfigurationManager.AppSettings["install_file_path"];
+                if (!File.Exists(installFile))
+                {
+                    MessageBox.Show(@"Fisierul de instalare nu exista la calea " + installFile, "Eroare");
+                    return;
+                }
                 MySqlCommand stmt = new MySqlCommand();
                 stmt.Connection = Database.getInstance();
-                stmt.CommandText = File.ReadAllText("schema.sql");
+                stmt.CommandText = File.ReadAllText(installFile);
                 stmt.ExecuteNonQuery();
                 MessageBox.Show("Baza de date a fost populata!");
             }
@@ -238,7 +244,6 @@ namespace Project_ProgrWindows
                 String entity_fields = string.Join(", ", this.fields);
                 String stmt = @"SELECT " + entity_fields + " FROM " + this.main_table + " WHERE `" + field + "` = '" + 
                     MySql.Data.MySqlClient.MySqlHelper.EscapeString(value) + "' LIMIT 1";
-                Console.WriteLine(stmt);
                 MySqlCommand command = new MySqlCommand(stmt, this.getConnection());
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -328,7 +333,7 @@ namespace Project_ProgrWindows
             {
                 statement += @" WHERE " + where;
             }
-            MessageBox.Show(statement);
+
             try
             {
                 MySqlCommand stmt = new MySqlCommand();
@@ -492,6 +497,37 @@ namespace Project_ProgrWindows
             this.fields.Add("category_id");
             this.fields.Add("status");
             this.fields.Add("stock_qty");
+        }
+
+        /// <summary>
+        /// Override toString method.
+        /// Used for export data about the product.
+        /// </summary>
+        /// <returns></returns>
+        override public string ToString()
+        {
+            StringBuilder info = new StringBuilder();
+            info.Append(@"Produs: " + this.currentData.Single(item => item.Key == "name").Value.ToString() + "\r\n");
+            info.Append(@"ID intern: " + this.currentData.Single(item => item.Key == "product_id").Value.ToString() + "\r\n");
+            info.Append(@"SKU: " + this.currentData.Single(item => item.Key == "sku").Value.ToString() + "\r\n");
+            info.Append(@"Pret: " + this.currentData.Single(item => item.Key == "price").Value.ToString() + "\r\n");
+            info.Append(@"Stoc: " + this.currentData.Single(item => item.Key == "stock_qty").Value.ToString());
+
+            return info.ToString();
+        }
+
+        /// <summary>
+        /// Overload operator "+".
+        /// Get the sum of prices of the current product and value sent as parameter.
+        /// </summary>
+        /// <param name="add"></param>
+        /// <returns></returns>
+        override float operator +(float add)
+        {
+            float sumPrice = 0;
+            var currentPrice = this.currentData.First(item => item.Key.Equals("price")).Value;
+            sumPrice = Convert.ToSingle(currentPrice) + Convert.ToSingle(add);
+            return sumPrice;
         }
 
         /// <summary>

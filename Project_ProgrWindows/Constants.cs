@@ -3,21 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Project_ProgrWindows
 {
     public static class Constants
     {
-        public const String DATABASE_NAME = "minierp_proiect";
+        /// <summary>
+        /// Database name.
+        /// </summary>
+        public static String DATABASE_NAME = ConfigurationManager.AppSettings["name"];
 
-        public const String DATABASE_USER = "minierp";
+        /// <summary>
+        /// Database used.
+        /// </summary>
+        public static String DATABASE_USER = ConfigurationManager.AppSettings["user"];
 
-        public const String DATABASE_PASSWORD = "minierp";
+        /// <summary>
+        /// Database password.
+        /// </summary>
+        public static String DATABASE_PASSWORD = ConfigurationManager.AppSettings["password"];
 
-        public const String DATABASE_HOST = "localhost";
+        /// <summary>
+        /// Database host.
+        /// </summary>
+        public static String DATABASE_HOST = ConfigurationManager.AppSettings["host"];
 
-        public const int DATABASE_PORT = 3306;
+        /// <summary>
+        /// Database port.
+        /// </summary>
+        public static String DATABASE_PORT = ConfigurationManager.AppSettings["port"];
 
-        public const float APP_VERSION = 0.1f;
+        /// <summary>
+        /// Current version.
+        /// </summary>
+        public static float APP_VERSION = 0.1f;
     }
 }

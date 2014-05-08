@@ -44,6 +44,8 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.btnDuplicate = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.btnUserControlCheckbox1 = new Project_ProgrWindows.btnUserControlCheckbox();
             this.SuspendLayout();
             // 
             // labelId
@@ -169,16 +171,6 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // buttonSave
-            // 
-            this.buttonSave.Location = new System.Drawing.Point(13, 357);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 14;
-            this.buttonSave.Text = "Salvare";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
             // btnDuplicate
             // 
             this.btnDuplicate.Location = new System.Drawing.Point(123, 357);
@@ -189,11 +181,31 @@
             this.btnDuplicate.UseVisualStyleBackColor = true;
             this.btnDuplicate.Click += new System.EventHandler(this.btnDuplicate_Click);
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(123, 387);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 16;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // btnUserControlCheckbox1
+            // 
+            this.btnUserControlCheckbox1.Location = new System.Drawing.Point(4, 333);
+            this.btnUserControlCheckbox1.Name = "btnUserControlCheckbox1";
+            this.btnUserControlCheckbox1.Size = new System.Drawing.Size(113, 51);
+            this.btnUserControlCheckbox1.TabIndex = 17;
+            this.btnUserControlCheckbox1.tryToSave += new Project_ProgrWindows.btnUserControlCheckbox.click(this.btnUserControlCheckbox1_tryToSave);
+            // 
             // EditProductForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 426);
+            this.Controls.Add(this.btnUserControlCheckbox1);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnDuplicate);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
@@ -239,5 +251,7 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button btnDuplicate;
+        private System.Windows.Forms.Button btnExport;
+        private btnUserControlCheckbox btnUserControlCheckbox1;
     }
 }

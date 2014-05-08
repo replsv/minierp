@@ -99,6 +99,7 @@
             this.buttonCancel.TabIndex = 15;
             this.buttonCancel.Text = "Anulare";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // EditCategoryForm
             // 

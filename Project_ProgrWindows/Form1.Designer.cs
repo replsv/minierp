@@ -35,13 +35,11 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fisierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.despreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setariToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.instaleazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iesireToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optiuniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adaugaProdusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adaugaCategorieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cautaProdusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonListCategories = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -61,6 +59,7 @@
             this.listViewCategories = new System.Windows.Forms.ListView();
             this.categoryId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.categoryName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.statisticiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -110,13 +109,11 @@
             // 
             this.fisierToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.despreToolStripMenuItem,
-            this.setariToolStripMenuItem,
             this.instaleazaToolStripMenuItem,
             this.iesireToolStripMenuItem});
             this.fisierToolStripMenuItem.Name = "fisierToolStripMenuItem";
             this.fisierToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.fisierToolStripMenuItem.Text = "Fisier";
-            this.fisierToolStripMenuItem.Click += new System.EventHandler(this.fisierToolStripMenuItem_Click);
             // 
             // despreToolStripMenuItem
             // 
@@ -124,12 +121,6 @@
             this.despreToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.despreToolStripMenuItem.Text = "Despre";
             this.despreToolStripMenuItem.Click += new System.EventHandler(this.despreToolStripMenuItem_Click);
-            // 
-            // setariToolStripMenuItem
-            // 
-            this.setariToolStripMenuItem.Name = "setariToolStripMenuItem";
-            this.setariToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.setariToolStripMenuItem.Text = "Setari";
             // 
             // instaleazaToolStripMenuItem
             // 
@@ -150,7 +141,7 @@
             this.optiuniToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.adaugaProdusToolStripMenuItem,
             this.adaugaCategorieToolStripMenuItem,
-            this.cautaProdusToolStripMenuItem});
+            this.statisticiToolStripMenuItem});
             this.optiuniToolStripMenuItem.Name = "optiuniToolStripMenuItem";
             this.optiuniToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.optiuniToolStripMenuItem.Text = "Optiuni";
@@ -168,12 +159,6 @@
             this.adaugaCategorieToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.adaugaCategorieToolStripMenuItem.Text = "Adauga categorie";
             this.adaugaCategorieToolStripMenuItem.Click += new System.EventHandler(this.adaugaCategorieToolStripMenuItem_Click);
-            // 
-            // cautaProdusToolStripMenuItem
-            // 
-            this.cautaProdusToolStripMenuItem.Name = "cautaProdusToolStripMenuItem";
-            this.cautaProdusToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.cautaProdusToolStripMenuItem.Text = "Cauta produs";
             // 
             // buttonListCategories
             // 
@@ -330,6 +315,13 @@
             this.categoryName.Text = "Nume";
             this.categoryName.Width = 600;
             // 
+            // statisticiToolStripMenuItem
+            // 
+            this.statisticiToolStripMenuItem.Name = "statisticiToolStripMenuItem";
+            this.statisticiToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.statisticiToolStripMenuItem.Text = "Statistici";
+            this.statisticiToolStripMenuItem.Click += new System.EventHandler(this.statisticiToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -370,9 +362,7 @@
         private System.Windows.Forms.ToolStripMenuItem optiuniToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adaugaProdusToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adaugaCategorieToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cautaProdusToolStripMenuItem;
         private System.Windows.Forms.Button buttonListCategories;
-        private System.Windows.Forms.ToolStripMenuItem setariToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListView listViewProducts;
@@ -392,6 +382,7 @@
         private System.Windows.Forms.ListView listViewCategories;
         private System.Windows.Forms.ColumnHeader categoryId;
         private System.Windows.Forms.ColumnHeader categoryName;
+        private System.Windows.Forms.ToolStripMenuItem statisticiToolStripMenuItem;
     }
 }
 

@@ -13,14 +13,30 @@ namespace Project_ProgrWindows
 {
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Define the export path.
+        /// </summary>
+        private static string _exportPath = System.Configuration.ConfigurationManager.AppSettings["export_path"];
+
+        /// <summary>
+        /// Public getter.
+        /// </summary>
+        public string exportPath { get { return _exportPath; } }
+
+        /// <summary>
+        /// Constructor.
+        /// Initialize component.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
         }
 
-        /**
-         * Show products.
-         */
+        /// <summary>
+        /// Show products.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             this.hideAllData();
@@ -28,6 +44,11 @@ namespace Project_ProgrWindows
             listViewProducts.Visible = true;
         }
 
+        /// <summary>
+        /// Import products.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             try
@@ -37,7 +58,7 @@ namespace Project_ProgrWindows
                 openFile.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
                 if (openFile.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("Fisier: " + openFile.FileName);
+                    
                 }
             }
             catch(Exception)
@@ -46,37 +67,26 @@ namespace Project_ProgrWindows
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void fisierToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        /**
-         * Show the 'About' window.
-         */
+        /// <summary>
+        /// Show the "About" info.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void despreToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Mini ERP - Aplicatie management produse\nAutor: Cioropina Gabriel\nProiect C#\nASE, CSIE, Bucuresti\nVersiune: " + Constants.APP_VERSION.ToString() + "\n2014", "Despre");
+            MessageBox.Show(@"Mini ERP - Aplicatie management produse\n" +
+                "Autor: Cioropina Gabriel\n" + 
+                "Proiect C#\n" +
+                "ASE, CSIE, Bucuresti\n" +
+                "Versiune: " + Constants.APP_VERSION.ToString() + "\n" +
+                "2014", "Despre");
         }
 
-        /**
-         * Prompt a confirmation upon exiting.
-         */
+        /// <summary>
+        /// Prompt a confirmation upon exiting.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void iesireToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Sunteti sigur ca vreti sa iesiti?", "Iesire", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -85,18 +95,18 @@ namespace Project_ProgrWindows
             }
         }
 
-        /**
-         * ShowData event.
-         */
+        /// <summary>
+        /// ShowData event.
+        /// </summary>
         private void listView2_showData()
         {
             this.labelListProducts.Visible = true;
             this.refreshProductsListView();
         }
 
-        /**
-         * Hide all data. Needed when changing views.
-         */
+        /// <summary>
+        /// Hide all data. Needed when changing views between products and categories.
+        /// </summary>
         private void hideAllData()
         {
             this.labelListProducts.Visible = false;
@@ -105,18 +115,23 @@ namespace Project_ProgrWindows
             this.listViewCategories.Visible = false;
         }
 
-        /**
-         * Disable resize of columns in listview products.
-         */
+        /// <summary>
+        /// Disable resize of columns in listview products.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView2_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
         {
             e.Cancel = true;
             e.NewWidth = listViewProducts.Columns[e.ColumnIndex].Width;
         }
 
-        /**
-         * Install db.
-         */
+        /// <summary>
+        /// Install db.
+        /// Import the sql file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void instaleazaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Utils.isInstalled() == false)
@@ -132,9 +147,11 @@ namespace Project_ProgrWindows
             }
         }
 
-        /**
-         * Export products into xml file.
-         */
+        /// <summary>
+        /// Export products into xml file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
             Product products = new Product();
@@ -146,7 +163,7 @@ namespace Project_ProgrWindows
             else
             {
                 DataSet dataSet = results.DataSet;
-                String output = @"C:\\export-produse-minierp-" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".xml";
+                String output = @exportPath + "export-produse-minierp-" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".xml";
                 try
                 {
                     dataSet.WriteXml(output);
@@ -160,9 +177,11 @@ namespace Project_ProgrWindows
             
         }
 
-        /**
-         * Trigger edit form on doubleclick event.
-         */
+        /// <summary>
+        /// Trigger product edit form on doubleclick event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listViewProducts_DoubleClick(object sender, EventArgs e)
         {
             if (listViewProducts.SelectedItems.Count == 1)
@@ -175,17 +194,21 @@ namespace Project_ProgrWindows
             }
         }
 
-        /**
-         * Click event for edit product from contextual toolstrip menu.
-         */
+        /// <summary>
+        /// Click event for edit product from contextual toolstrip menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editazaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             listViewProducts_DoubleClick(sender, e);
         }
 
-        /**
-         * Click event for delete product from contextual toolstrip menu.
-         */
+        /// <summary>
+        /// Click event for delete product from contextual toolstrip menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void stergeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int selected = listViewProducts.SelectedItems.Count;
@@ -218,9 +241,10 @@ namespace Project_ProgrWindows
             }
         }
 
-        /**
-         * Refresh product list view
-         */
+        /// <summary>
+        /// Refresh product list view
+        /// Reload all data from database.
+        /// </summary>
         private void refreshProductsListView()
         {
             listViewProducts.Items.Clear();
@@ -249,6 +273,11 @@ namespace Project_ProgrWindows
             listViewProducts.View = View.Details;
         }
 
+        /// <summary>
+        /// Add new product.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void adaugaProdusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditProductForm editForm = new EditProductForm(this);
@@ -256,6 +285,11 @@ namespace Project_ProgrWindows
             this.refreshProductsListView();
         }
 
+        /// <summary>
+        /// List categories.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonListCategories_Click(object sender, EventArgs e)
         {
             this.hideAllData();
@@ -264,6 +298,9 @@ namespace Project_ProgrWindows
             this.refreshCategoriesListView();
         }
 
+        /// <summary>
+        /// Refresh category list view.
+        /// </summary>
         private void refreshCategoriesListView()
         {
             listViewCategories.Items.Clear();
@@ -292,6 +329,11 @@ namespace Project_ProgrWindows
             listViewCategories.View = View.Details;
         }
 
+        /// <summary>
+        /// Trigger edit form for categories on doubleclick event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listViewCategories_DoubleClick(object sender, EventArgs e)
         {
             if (listViewCategories.SelectedItems.Count == 1)
@@ -304,11 +346,27 @@ namespace Project_ProgrWindows
             }
         }
 
+        /// <summary>
+        /// Add category.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void adaugaCategorieToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditCategoryForm editForm = new EditCategoryForm(this);
             editForm.ShowDialog();
             this.refreshProductsListView();
+        }
+
+        /// <summary>
+        /// Show statistics chart.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void statisticiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StatsChart form = new StatsChart();
+            form.Show();
         }
     }
 }

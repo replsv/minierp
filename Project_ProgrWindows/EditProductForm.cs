@@ -13,10 +13,23 @@ namespace Project_ProgrWindows
 {
     public partial class EditProductForm : Form
     {
-
+        /// <summary>
+        /// Parent.
+        /// </summary>
         private MainForm parent;
+
+        /// <summary>
+        /// List view item.
+        /// </summary>
         private ListViewItem item;
 
+        /// <summary>
+        /// Constructor.
+        /// Populate the current textboxes with the product's data.
+        /// Append the categories in a selectbox.
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="item"></param>
         public EditProductForm(MainForm parent, ListViewItem item)
         {
             this.parent = parent;
@@ -42,6 +55,7 @@ namespace Project_ProgrWindows
             this.label1.Text = "Adaugare produs";
             this.Text = "Adaugare produs";
             this.btnDuplicate.Visible = false;
+            this.btnExport.Visible = false;
         }
 
         /// <summary>
@@ -87,12 +101,64 @@ namespace Project_ProgrWindows
             this.Dispose();
         }
 
+        
         /// <summary>
-        /// Trigger save product.
+        /// Duplicate product.
+        /// Implement iCloneable interface functionality.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void btnDuplicate_Click(object sender, EventArgs e)
+        {
+            string productId = textBoxId.Text;
+            Product oldProduct = new Product();
+            oldProduct.load(productId);
+            Product cloned = (Product) oldProduct.Clone();
+            var sku = cloned.getData().First(item => item.Key == "sku");
+            cloned.setData(cloned.getData());
+            if (cloned.save())
+            {
+                MessageBox.Show(@"Produsul a fost duplicat cu codul SKU " + sku.Value.ToString(), "Succes!");
+                this.Dispose();
+            }
+            else
+            {
+                MessageBox.Show("A intervenit o eroare!", "Eroare");
+            }
+        }
+
+        /// <summary>
+        /// Export product data into a txt file. Usage of streamWriter from System.IO.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string productId = textBoxId.Text;
+                Product product = new Product();
+                product.load(productId);
+                string exportPath = @parent.exportPath + "export-produs-" + product.getData().Single(item => item.Key == "sku").Value.ToString() + ".txt";
+                System.IO.StreamWriter write = new System.IO.StreamWriter(exportPath);
+                write.WriteLine(product.ToString());
+                write.Close();
+                MessageBox.Show(@"Fisier export: " + exportPath);
+                this.Dispose();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("A intervenit o eroare!", "Eroare");
+            }            
+        }
+
+        /// <summary>
+        /// Trigger save product.
+        /// We're using a custom UserControl.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUserControlCheckbox1_tryToSave(object sender, EventArgs e)
         {
             dynamic selectedCategory = comboBoxCategory.SelectedItem;
             List<KeyValuePair<String, String>> formData = new List<KeyValuePair<String, String>>
@@ -127,32 +193,6 @@ namespace Project_ProgrWindows
             else
             {
                 MessageBox.Show("A intervenit o eroare!");
-            }
-
-        }
-
-        /// <summary>
-        /// Duplicate product.
-        /// Implement iCloneable interface functionality.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnDuplicate_Click(object sender, EventArgs e)
-        {
-            string productId = textBoxId.Text;
-            Product oldProduct = new Product();
-            oldProduct.load(productId);
-            Product cloned = (Product) oldProduct.Clone();
-            var sku = cloned.getData().First(item => item.Key == "sku");
-            cloned.setData(cloned.getData());
-            if (cloned.save())
-            {
-                MessageBox.Show(@"Produsul a fost duplicat cu codul SKU " + sku.Value.ToString(), "Succes!");
-                this.Dispose();
-            }
-            else
-            {
-                MessageBox.Show("A intervenit o eroare!", "Eroare");
             }
         }
     }
