@@ -27,15 +27,26 @@ namespace Project_ProgrWindows
             populateForm();
         }
 
+        /// <summary>
+        /// Constructor.
+        /// Used when adding a new product.
+        /// Few elements are altered. (ie. the title of the form + hide the duplicate button) 
+        /// </summary>
+        /// <param name="parent"></param>
         public EditProductForm(MainForm parent)
         {
             this.parent = parent;
             InitializeComponent();
             comboBoxCategory.SelectedIndex = 0;
             populateCategoriesCombobox();
-            this.label1.Text = "Adauga produs";
+            this.label1.Text = "Adaugare produs";
+            this.Text = "Adaugare produs";
+            this.btnDuplicate.Visible = false;
         }
 
+        /// <summary>
+        /// Populate form with the current product's values.
+        /// </summary>
         private void populateForm()
         {
             textBoxId.Text = item.SubItems[0].Text;
@@ -46,6 +57,10 @@ namespace Project_ProgrWindows
             comboBoxCategory.Text = item.SubItems[4].Text;
         }
 
+        /// <summary>
+        /// Populate category combobox by loading the values from the database.
+        /// Also append the current selection in this way.
+        /// </summary>
         private void populateCategoriesCombobox()
         {
             Category categories = new Category();
@@ -62,11 +77,21 @@ namespace Project_ProgrWindows
 
         }
 
+        /// <summary>
+        /// Close window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
 
+        /// <summary>
+        /// Trigger save product.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSave_Click(object sender, EventArgs e)
         {
             dynamic selectedCategory = comboBoxCategory.SelectedItem;
@@ -81,7 +106,20 @@ namespace Project_ProgrWindows
             };
 
             Product product = new Product();
-            if (product.save(formData))
+            product.setData(formData);
+
+            if (textBoxId.Text != "")
+            {
+                Product compare = new Product();
+                compare.load(textBoxId.Text);
+                if (product.CompareTo(compare) == 1)
+                {
+                    MessageBox.Show("Trebuie sa faceti cel putin o modificare!", "Atentie");
+                    return;
+                }
+            }
+
+            if (product.save())
             {
                 MessageBox.Show("Produsul a fost salvat!");
                 this.Dispose();
@@ -91,6 +129,31 @@ namespace Project_ProgrWindows
                 MessageBox.Show("A intervenit o eroare!");
             }
 
+        }
+
+        /// <summary>
+        /// Duplicate product.
+        /// Implement iCloneable interface functionality.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDuplicate_Click(object sender, EventArgs e)
+        {
+            string productId = textBoxId.Text;
+            Product oldProduct = new Product();
+            oldProduct.load(productId);
+            Product cloned = (Product) oldProduct.Clone();
+            var sku = cloned.getData().First(item => item.Key == "sku");
+            cloned.setData(cloned.getData());
+            if (cloned.save())
+            {
+                MessageBox.Show(@"Produsul a fost duplicat cu codul SKU " + sku.Value.ToString(), "Succes!");
+                this.Dispose();
+            }
+            else
+            {
+                MessageBox.Show("A intervenit o eroare!", "Eroare");
+            }
         }
     }
 }

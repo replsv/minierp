@@ -66,11 +66,6 @@ namespace Project_ProgrWindows
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         /**
          * Show the 'About' window.
          */
@@ -95,6 +90,7 @@ namespace Project_ProgrWindows
          */
         private void listView2_showData()
         {
+            this.labelListProducts.Visible = true;
             this.refreshProductsListView();
         }
 
@@ -103,7 +99,10 @@ namespace Project_ProgrWindows
          */
         private void hideAllData()
         {
-            listViewProducts.Visible = false;
+            this.labelListProducts.Visible = false;
+            this.labelListCategories.Visible = false;
+            this.listViewProducts.Visible = false;
+            this.listViewCategories.Visible = false;
         }
 
         /**
@@ -253,6 +252,61 @@ namespace Project_ProgrWindows
         private void adaugaProdusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditProductForm editForm = new EditProductForm(this);
+            editForm.ShowDialog();
+            this.refreshProductsListView();
+        }
+
+        private void buttonListCategories_Click(object sender, EventArgs e)
+        {
+            this.hideAllData();
+            this.labelListCategories.Visible = true;
+            this.listViewCategories.Visible = true;
+            this.refreshCategoriesListView();
+        }
+
+        private void refreshCategoriesListView()
+        {
+            listViewCategories.Items.Clear();
+            Category products = new Category();
+            DataTable results = products.collection();
+            String[] fields = new[] { "name" };
+            if (results != null)
+            {
+                foreach (DataRow row in results.Rows)
+                {
+                    ListViewItem item = new ListViewItem(new[] { row["category_id"].ToString() });
+
+                    foreach (String rowName in fields)
+                    {
+                        item.SubItems.Add(row[rowName].ToString());
+                    }
+
+                    listViewCategories.Items.Add(item);
+                }
+            }
+            else
+            {
+                listViewCategories.Items.Add(new ListViewItem(new[] { "Nu exista rezultate" }));
+            }
+
+            listViewCategories.View = View.Details;
+        }
+
+        private void listViewCategories_DoubleClick(object sender, EventArgs e)
+        {
+            if (listViewCategories.SelectedItems.Count == 1)
+            {
+                ListView.SelectedListViewItemCollection items = listViewCategories.SelectedItems;
+                ListViewItem lvItem = items[0];
+                EditCategoryForm editForm = new EditCategoryForm(this, lvItem);
+                editForm.ShowDialog();
+                this.refreshCategoriesListView();
+            }
+        }
+
+        private void adaugaCategorieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditCategoryForm editForm = new EditCategoryForm(this);
             editForm.ShowDialog();
             this.refreshProductsListView();
         }

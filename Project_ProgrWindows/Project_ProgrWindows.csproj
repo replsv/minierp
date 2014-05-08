@@ -47,6 +47,12 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="EditCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditCategoryForm.Designer.cs">
+      <DependentUpon>EditCategoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="EditCategoryForm.resx">
+      <DependentUpon>EditCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditProductForm.resx">
       <DependentUpon>EditProductForm.cs</DependentUpon>
     </EmbeddedResource>

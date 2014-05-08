@@ -43,6 +43,7 @@
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.btnDuplicate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelId
@@ -178,11 +179,22 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // btnDuplicate
+            // 
+            this.btnDuplicate.Location = new System.Drawing.Point(123, 357);
+            this.btnDuplicate.Name = "btnDuplicate";
+            this.btnDuplicate.Size = new System.Drawing.Size(75, 23);
+            this.btnDuplicate.TabIndex = 15;
+            this.btnDuplicate.Text = "Duplicare";
+            this.btnDuplicate.UseVisualStyleBackColor = true;
+            this.btnDuplicate.Click += new System.EventHandler(this.btnDuplicate_Click);
+            // 
             // EditProductForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 426);
+            this.Controls.Add(this.btnDuplicate);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.comboBoxCategory);
@@ -226,5 +238,6 @@
         private System.Windows.Forms.ComboBox comboBoxCategory;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button btnDuplicate;
     }
 }
