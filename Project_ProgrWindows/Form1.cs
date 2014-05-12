@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Xml;
+using System.Xml.Linq;
 using Project_ProgrWindows;
 
 namespace Project_ProgrWindows
@@ -58,12 +61,138 @@ namespace Project_ProgrWindows
                 openFile.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
                 if (openFile.ShowDialog() == DialogResult.OK)
                 {
-                    
+                    String filePath = openFile.FileName;
+                    try
+                    {
+                        string content = string.Empty;
+
+                        using (StreamReader streamReader = new StreamReader(filePath.ToString()))
+                        {
+                            content = streamReader.ReadToEnd();
+                        }
+
+                        if (content.Length < 20)
+                        {
+                            MessageBox.Show("Fisierul este invalid!");
+                            return;
+                        }
+
+                        if (filePath.Contains(".xml"))
+                        {
+                            this._importXml(content);
+                            this.listView2_showData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Tip fisier invalid!", "Eroare");
+                        }
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("A intervenit o eroare.");
+                    }
                 }
             }
             catch(Exception)
             {
+                MessageBox.Show("A intervenit o eroare.");
+            }
+        }
 
+        /// <summary>
+        /// Import XML file of products into the database.
+        /// </summary>
+        /// <param name="content"></param>
+        protected void _importXml(string content)
+        {
+            try
+            {
+                int imported = 0;
+
+                var doc = XDocument.Parse(content.ToString());
+                List<Product> data = new List<Product>();
+                foreach(var item in doc.Root.Elements("results")) {
+                    
+                    string categoryName = item.Element("category").Value.ToString();
+                    string categoryId = string.Empty;
+                    /**
+                     * Load new product's category in order to assign the category id to it.
+                     */
+                    Category category = new Category();
+                    category.load(categoryName, "name");
+                    /**
+                     * We should create the new category if it doesn't exist
+                     */
+                    if (category.isNew())
+                    {
+                        category.setData(new List<KeyValuePair<String, String>>{
+                            new KeyValuePair<String, String>("name", categoryName)
+                        });
+                        category.save();
+                        category.load(categoryName, "name");
+                        
+                    }
+                    /**
+                     * Get the category id
+                     */
+                    foreach (KeyValuePair<string, string> k in category.getData())
+                    {
+                        if (k.Key.Equals("category_id") && k.Value.ToString() != "")
+                        {
+                            categoryId = k.Value.ToString();
+                        }
+                    }
+
+                    /**
+                     * Add in the Product type list the new product. We will persist later.
+                     */
+                    List<KeyValuePair<String, String>> productData = new List<KeyValuePair<String, String>>
+                    {
+                        new KeyValuePair<String, String>("name", item.Element("name").Value.ToString()),
+                        new KeyValuePair<String, String>("price", item.Element("price").Value.ToString()),
+                        new KeyValuePair<String, String>("sku", item.Element("sku").Value.ToString()),
+                        new KeyValuePair<String, String>("stock_qty", item.Element("stock_qty").Value.ToString()),
+                        new KeyValuePair<String, String>("category_id", categoryId.ToString()),
+                    };
+
+                    Product product = new Product();
+                    product.setData(productData);
+
+                    data.Add(product);
+
+                }
+
+                /**
+                 * Persist products in the database now.
+                 */
+                foreach (Product p in data)
+                {
+                    try
+                    {
+                        p.save();
+                        imported++;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.ToString());
+                    }
+                }
+
+                /**
+                 * Display a message.
+                 */
+                if (imported > 0)
+                {
+                    MessageBox.Show(@"Fisierul a fost importat! Au fost importate " + imported.ToString() + " produse.", "Succes");
+                }
+                else
+                {
+                    MessageBox.Show("Fisierul nu a putut fi importat!", "Eroare");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Eroare!");
             }
         }
 

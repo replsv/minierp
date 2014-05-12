@@ -401,7 +401,7 @@ namespace Project_ProgrWindows
         /// <param name="offset">offset</param>
         /// <param name="orderbyClause">order by clause</param>
         /// <returns>DataTable</returns>
-        public DataTable collection(string fields = "*", string joinClause = null, string whereClause = null, int limit = 100, int offset = 0, string orderbyClause = null)
+        public DataTable collection(string fields = "*", string joinClause = null, string whereClause = null, int limit = 1000, int offset = 0, string orderbyClause = null)
         {
             string select = @"SELECT " + fields + " FROM " + this.main_table;
             DataTable dataTable = null; 
@@ -569,7 +569,7 @@ namespace Project_ProgrWindows
         /// <param name="offset"></param>
         /// <param name="orderbyClause"></param>
         /// <returns></returns>
-        public DataTable collection(string whereClause = null, int limit = 100, int offset = 0, string orderbyClause = null)
+        public DataTable collection(string whereClause = null, int limit = 1000, int offset = 0, string orderbyClause = null)
         {
             String fields = "products.*, categories.name as category_name," +
                 "case products.status " +
