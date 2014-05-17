@@ -42,7 +42,6 @@
             this.labelCategory = new System.Windows.Forms.Label();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
             this.btnDuplicate = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnUserControlCheckbox1 = new Project_ProgrWindows.btnUserControlCheckbox();
@@ -207,7 +206,6 @@
             this.Controls.Add(this.btnUserControlCheckbox1);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnDuplicate);
-            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.comboBoxCategory);
             this.Controls.Add(this.labelCategory);
@@ -249,7 +247,6 @@
         private System.Windows.Forms.Label labelCategory;
         private System.Windows.Forms.ComboBox comboBoxCategory;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button btnDuplicate;
         private System.Windows.Forms.Button btnExport;
         private btnUserControlCheckbox btnUserControlCheckbox1;

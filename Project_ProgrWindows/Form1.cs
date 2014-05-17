@@ -203,11 +203,16 @@ namespace Project_ProgrWindows
         /// <param name="e"></param>
         private void despreToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(@"Mini ERP - Aplicatie management produse\n" +
-                "Autor: Cioropina Gabriel\n" + 
-                "Proiect C#\n" +
-                "ASE, CSIE, Bucuresti\n" +
-                "Versiune: " + Constants.APP_VERSION.ToString() + "\n" +
+            MessageBox.Show(@"Mini ERP - Aplicatie management produse" +
+                Environment.NewLine +
+                "Autor: Cioropina Gabriel" + 
+                Environment.NewLine +
+                "Proiect C#" +
+                Environment.NewLine  +
+                "ASE, CSIE, Bucuresti" +
+                Environment.NewLine +
+                "Versiune: " + Constants.APP_VERSION.ToString() +
+                Environment.NewLine +
                 "2014", "Despre");
         }
 
