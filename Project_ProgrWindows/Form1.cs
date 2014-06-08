@@ -205,12 +205,6 @@ namespace Project_ProgrWindows
         {
             MessageBox.Show(@"Mini ERP - Aplicatie management produse" +
                 Environment.NewLine +
-                "Autor: Cioropina Gabriel" + 
-                Environment.NewLine +
-                "Proiect C#" +
-                Environment.NewLine  +
-                "ASE, CSIE, Bucuresti" +
-                Environment.NewLine +
                 "Versiune: " + Constants.APP_VERSION.ToString() +
                 Environment.NewLine +
                 "2014", "Despre");
